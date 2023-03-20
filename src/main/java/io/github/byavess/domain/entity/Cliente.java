@@ -1,13 +1,35 @@
-package io.github.byaves.domain;
+package io.github.byavess.domain.entity;
 
+import jakarta.persistence.*;
+
+import java.util.Set;
+
+@Entity
+@Table(name = "cliente")
 public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "nome", length = 100 )
     private String nome;
 
+    @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY) // eager vem todos os pedidos e lazy so vem o que ta chamando
+    private Set<Pedido> pedidos;
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
 
-    public Cliente(Integer id) {
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public Cliente( ) {
+     }
+
+     public Cliente(Integer id) {
         this.id = id;
-
     }
     public Cliente(String nome) {
         this.nome = nome;
@@ -17,8 +39,6 @@ public class Cliente {
         this.id = id;
         this.nome = nome;
     }
-
-
 
 
     public Integer getId() {

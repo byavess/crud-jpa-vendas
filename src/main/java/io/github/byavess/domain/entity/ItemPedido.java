@@ -1,9 +1,21 @@
-package io.github.byaves.domain;
+package io.github.byavess.domain.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Item_Pedido")
 public class ItemPedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "pedidos_id")
     private Pedido pedido;
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
+    @Column(name = "quantidade")
     private Integer quantidade;
 
     public ItemPedido() {

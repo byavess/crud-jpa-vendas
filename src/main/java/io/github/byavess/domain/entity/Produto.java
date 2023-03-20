@@ -1,27 +1,40 @@
-package io.github.byaves.domain;
+package io.github.byavess.domain.entity;
+
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+@Entity
+@Table(name = "produto")
 public class Produto {
-    private Integer cliente_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "descircao")
     private String descircao;
+    @Column(name = "preco_unitario")
     private BigDecimal preco;
+
+    @OneToMany(mappedBy = "produto")
+    List<ItemPedido> itens;
 
     public Produto() {
     }
 
-    public Produto(Integer cliente_id, String descircao, BigDecimal preco) {
-        this.cliente_id = cliente_id;
+    public Produto(Integer id, String descircao, BigDecimal preco) {
+        this.id = id;
         this.descircao = descircao;
         this.preco = preco;
     }
 
     public Integer getCliente_id() {
-        return cliente_id;
+        return id;
     }
 
     public void setCliente_id(Integer cliente_id) {
-        this.cliente_id = cliente_id;
+        this.id = cliente_id;
     }
 
     public String getDescircao() {
